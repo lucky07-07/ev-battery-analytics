@@ -1,0 +1,12 @@
+# Trip report TripB14
+TripB14 is a winter trip on 2020-01-05 (Highway, weather: cloudy). It covered 61.0 km in 64 minutes: 56 min driving, 8 min stopped.
+Mean outside temperature while driving was 3.5 °C. The battery started at 3 °C and warmed by 10 °C.
+Energy: consumption 18.5 kWh per 100 km; 12.44 kWh drawn from the battery, 1.18 kWh recovered by regenerative braking (10 % of drawn energy), 1.88 kWh used for cabin heating (15 % of drawn energy).
+Battery: 35 heavy-load voltage-sag events, median apparent pack resistance 171 mΩ.
+Anomaly flags (6):
+- A · battery resistance: resistance 211 mΩ vs about 121 mΩ expected at 12 °C (1.7×); SoC 48 %: the expected curve ignores SoC, and resistance is higher in the lower half; moderate current (92 A), so the estimate is noisier; 6 flagged events in this trip: a persistent state, not a one-off spike
+- A · battery resistance: resistance 208 mΩ vs about 121 mΩ expected at 12 °C (1.7×); SoC 48 %: the expected curve ignores SoC, and resistance is higher in the lower half; moderate current (93 A), so the estimate is noisier; 6 flagged events in this trip: a persistent state, not a one-off spike
+- A · battery resistance: resistance 197 mΩ vs about 116 mΩ expected at 13 °C (1.7×); SoC 49 %: the expected curve ignores SoC, and resistance is higher in the lower half; moderate current (97 A), so the estimate is noisier; 6 flagged events in this trip: a persistent state, not a one-off spike
+- A · battery resistance: resistance 190 mΩ vs about 121 mΩ expected at 12 °C (1.6×); SoC 47 %: the expected curve ignores SoC, and resistance is higher in the lower half; moderate current (113 A), so the estimate is noisier; 6 flagged events in this trip: a persistent state, not a one-off spike
+- A · battery resistance: resistance 173 mΩ vs about 116 mΩ expected at 13 °C (1.5×); SoC 49 %: the expected curve ignores SoC, and resistance is higher in the lower half; moderate current (120 A), so the estimate is noisier; 6 flagged events in this trip: a persistent state, not a one-off spike
+- A · battery resistance: resistance 247 mΩ vs about 182 mΩ expected at 4 °C (1.4×); moderate current (105 A), so the estimate is noisier; 6 flagged events in this trip: a persistent state, not a one-off spike

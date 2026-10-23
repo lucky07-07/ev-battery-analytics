@@ -1,0 +1,66 @@
+question,route,answer,evidence,seconds,category,expected_route,expected,correct,route_ok
+Which trip had the highest energy consumption per 100 km?,sql,"Trip B02 had the highest energy consumption per 100 km with a consumption of 1.2 kWh/100km.  
+",SELECT trip_id FROM assistant.v_trips ORDER BY consumption_kwh_per_100km DESC LIMIT 1,1.6,numbers,sql,['TripB02'],True,True
+Which trip had the lowest consumption per 100 km?,sql,"TripA26 had the lowest consumption per 100 km with a consumption of 0.10 kWh/100km.  
+",SELECT trip_id FROM assistant.v_trips ORDER BY consumption_kwh_per_100km ASC LIMIT 1,1.5,numbers,sql,['TripA26'],True,True
+Which trip covered the longest distance?,sql,"TripB14 covered the longest distance with a distance of 1200 km.  
+",SELECT trip_id FROM assistant.v_trips ORDER BY distance_km DESC LIMIT 1,1.3,numbers,sql,['TripB14'],True,True
+How many winter trips are in the dataset?,sql,"There are **38** winter trips in the dataset.  
+",SELECT COUNT(DISTINCT trip_id) FROM assistant.v_trips WHERE season = 'winter',1.3,numbers,sql,38,True,True
+Which trip had the coldest mean outside temperature?,sql,"The trip with the coldest mean outside temperature was TripB08 with a mean temperature of -10.0°C. 
+",SELECT trip_id FROM assistant.v_trips WHERE season = 'winter' ORDER BY ambient_mean_c DESC LIMIT 1,1.5,numbers,sql,['TripB37'],False,True
+Which three trips had the most voltage-sag events?,sql,"TripB09, TripB10, and TripB14 had the most voltage-sag events with 57, 44, and 35 events, respectively. 
+","SELECT trip_id, COUNT(*) FROM assistant.v_sag_events GROUP BY trip_id ORDER BY COUNT(*) DESC LIMIT 3",2.1,numbers,sql,"['TripB09', 'TripB10', 'TripB14']",True,True
+Which trips include charging while parked?,sql,"Trips B09 and B04 include charging while parked.  Trip B09 has a charging minimum of 10 and Trip B04 has a charging minimum of 5. 
+",SELECT trip_id FROM assistant.v_trips WHERE charging_min > 0 ORDER BY charging_min DESC LIMIT 10,1.6,numbers,sql,"['TripB04', 'TripB09']",True,True
+What was the median consumption of summer trips in kWh per 100 km?,sql,"The median consumption of summer trips in kWh per 100 km was 13.335 kWh.  
+",SELECT median(consumption_kwh_per_100km) FROM assistant.v_trips WHERE season = 'summer',1.5,numbers,sql,13.3,True,True
+What is the average heating share of energy in winter trips?,sql,"The average heating share of energy in winter trips is 20.1%.  The heating share is 20.1%  from trip id 1.  
+","SELECT ambient_mean_c, heating_kwh, energy_charged_kwh, energy_regen_kwh, energy_out_kwh, energy_charged_kwh, heating_share_pct FROM assistant.v_trips WHERE season = 'winter' ORDER BY ambient_mean_c DESC LIMIT 1;",2.1,numbers,sql,17.8,False,True
+How many trips started with the battery colder than 5 °C?,sql,"Not in the data: the database query failed (Binder Error: column ""batt_temp_c"" must appear in the GROUP BY clause or must be part of an aggregate function.
+Either add it to the GROUP BY list, or use ""ANY_VALUE(batt_temp_c)"" if the exact value of ""batt_temp_c"" is not important.).",SELECT COUNT(DISTINCT trip_id) FROM assistant.v_sag_events WHERE batt_temp_c < 5 ORDER BY batt_temp_c DESC LIMIT 1,1.7,numbers,sql,8,False,True
+How many kilometres were driven in winter in total?,sql,"A total of 795.59 kilometers were driven in winter.  
+",SELECT SUM(distance_km) FROM assistant.v_trips WHERE season = 'winter',1.4,numbers,sql,796.0,False,True
+How many anomaly flags does TripB14 have?,sql,"TripB14 has 6 anomaly flags.  
+```
+count(DISTINCT flag_id)
+                       6
+``` 
+",SELECT COUNT(DISTINCT flag_id) FROM assistant.v_anomalies WHERE trip_id = 'TripB14',1.4,numbers,sql,6,True,True
+Which trip has the most anomaly flags?,docs,"TripB38 has no anomaly flags. [trip_TripB38] 
+","['06_2', '06_5', '06_4', 'cleaning_log', 'trip_TripB38']",1.0,numbers,sql,['TripB14'],False,False
+Which test trip had the largest SoC model error?,sql,"The test trip with the largest SoC model error was TripB27 with a mean absolute SoC error of 10.0 pts.  
+",SELECT trip_id FROM assistant.v_soc_test_trips ORDER BY mean_abs_soc_error_pts DESC LIMIT 1,1.5,numbers,sql,['TripB27'],True,True
+How many voltage-sag events were flagged as anomalous?,sql,"7 voltage-sag events were flagged as anomalous.  
+",SELECT COUNT(DISTINCT trip_id) FROM assistant.v_sag_events WHERE flagged = TRUE,1.2,numbers,sql,18,False,True
+What is the test-set error of the selected SoC model?,sql,"The test-set error of the selected SoC model is 7.09 pts.  The trip id is TripB27. 
+","SELECT trip_id, mean_abs_soc_error_pts FROM assistant.v_soc_test_trips ORDER BY mean_abs_soc_error_pts DESC LIMIT 1",1.6,numbers,sql,2.12,False,True
+Why was TripB25 flagged?,docs,"TripB25 was flagged for battery resistance anomalies.  The battery resistance was higher than expected at various points in the trip, and this was flagged in the anomaly detection process. [trip_TripB25] 
+","['trip_TripB25', '06_2', 'cleaning_log', '02_2', '06_6']",1.2,explain,docs,"{'all': ['resistance'], 'any': ['soc', 'state of charge']}",False,True
+Why does energy consumption rise in winter?,docs,"Winter trips use about 43% more energy per km due to increased time spent stopped, which leads to the heater running and adding to heating per km. [04_2] 
+","['04_2', '04_3', '04_4', 'trip_TripB12', '04_5']",1.4,explain,docs,"{'all': ['heat'], 'any': ['regen', 'braking']}",False,True
+What was wrong with the heating signal in the summer trips?,docs,"In summer trips, the CAN heating-power signal was stale in 6% of samples. [06_6] 
+","['06_6', 'trip_TripA18', 'trip_TripA08', 'signal_dictionary', 'trip_TripA14']",1.7,explain,docs,"{'all': ['request'], 'any': ['stale', 'frozen', 'held']}",False,True
+Is the very high heating power in TripB02 a real event or a sensor error?,docs,"Notebook 01 flagged heating power up to about 39 kW in TripB02, which is much higher than the average of 7 kW in other trips.  The heating power spike should be checked against the independent signals that measure the same thing. [02_2] 
+","['trip_TripB02', '02_2', '06_6', 'trip_TripB22', 'trip_TripB10']",1.7,explain,docs,"{'all': ['real'], 'any': ['four', 'independent', 'agree']}",False,True
+Which model was selected for SoC estimation and why?,docs,"The stacked ensemble model was selected for SoC estimation, as it had the lowest cross-validated error in both tasks and the gain held on the 14 locked test trips. [05_2] 
+","['05_4', '05_2', '05_5', '05_3', '05_8']",4.2,explain,docs,{'all': ['stack']},True,True
+How does pack resistance change with battery temperature?,docs,"Pack resistance decreases from about 197 mΩ below 5 °C to about 73 mΩ above 25 °C. [04_5] 
+","['04_5', '05_7', '06_3', '04_7', '04_4']",4.8,explain,docs,"{'all': ['resistance'], 'any': ['falls', 'decreas', 'lower', 'drops', 'higher in the cold', 'rises as']}",True,True
+What happens to regenerative braking when the battery is cold?,docs,"The 99th-percentile regeneration current is about 22 A with the battery below 0 °C and about 60 A at 0–5 °C.  Recovered energy halves in winter (12 % vs 23 % of energy drawn) and rises with battery temperature (rho = 0.64). [04_4] 
+","['04_4', '05_7', '04_6', '06_5', '04_8']",1.6,explain,docs,"{'any': ['less', 'lower', 'limit', 'reduc', 'halve']}",True,True
+How were missing SoC values handled during cleaning?,docs,"Short SoC gaps of up to 5 s were filled using linear interpolation between the values on either side, while longer gaps were left missing and flagged. [02_6] 
+","['cleaning_log', '02_6', '02_1', '05_4', '05_7']",1.4,explain,docs,"{'any': ['interpolat', 'nearest', 'flagged', 'left missing']}",True,True
+Why did hyperparameter tuning improve the models only a little?,docs,"Hyperparameter tuning only improved the models by 0–3% [05_5]. This is because the best settings were already close to optimal, and the information in the signals was the main limiting factor.  [05_5] 
+","['05_5', '05_3', '05_2', '05_4', '05_8']",1.3,explain,docs,"{'any': ['information', 'signal', 'default']}",True,True
+Did any trip use unexpectedly much energy for its conditions?,docs,"No, the data shows that no trip used unexpectedly much energy for its conditions. [06_4] states that the leave-one-out model explains every trip's consumption within the limit. [04_2] states that winter trips use about 43% more energy per km. [trip_TripA18] and [trip_TripA17] show that the energy consumption is within the expected range for the trip conditions. 
+","['06_4', '06_5', '04_2', 'trip_TripA18', 'trip_TripA17']",2.0,explain,docs,"{'any': ['no trip', 'none', 'no unexplained', 'not flagged', 'no hidden', 'within the limit']}",True,True
+Why is the overview sheet's distance for TripA30 not trusted?,docs,"The overview sheet's distance for TripA30 does not match the integrated distance for every trip except TripA30. [trip_TripA30] 
+","['trip_TripA30', '03_1', 'trip_TripA20', 'trip_TripA32', 'trip_TripA27']",1.3,explain,docs,"{'any': ['copy', 'integrat', 'wrong', 'error', 'contradict', 'mismatch']}",True,True
+What is the battery chemistry of a Tesla Model 3?,out_of_scope,Not in the data: this assistant only answers questions about the 70 BMW i3 test drives in this project.,,0.4,out of scope,out_of_scope,None,True,True
+What will the weather be in Munich tomorrow?,out_of_scope,Not in the data: this assistant only answers questions about the 70 BMW i3 test drives in this project.,,0.4,out of scope,out_of_scope,None,True,True
+How much does a new BMW i3 cost?,out_of_scope,Not in the data: this assistant only answers questions about the 70 BMW i3 test drives in this project.,,0.3,out of scope,out_of_scope,None,True,True
+Who was driving during TripA05?,docs,"The driver of TripA05 is not specified in the provided data. [trip_TripA05] 
+","['trip_TripA05', 'trip_TripA15', 'trip_TripB05', 'trip_TripA25', 'trip_TripA30']",1.1,out of scope,out_of_scope,None,False,False
+What is the car's state of charge right now?,docs,"The car's battery started at 16 °C and warmed by 2 °C.  The battery's SoC is 15.9 kWh per 100 km. [trip_TripA17] 
+","['03_1', '03_3', '04_6', '06_4', 'trip_TripA17']",2.6,out of scope,out_of_scope,None,False,False

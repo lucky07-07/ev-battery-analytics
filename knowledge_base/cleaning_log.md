@@ -1,0 +1,12 @@
+# Data cleaning log
+- Value outside physical limits: soc_pct outside [1, 100] set to missing (trips: TripB14; values changed: 1)
+- Missing values in key signals: SoC: left missing, flagged (gaps <= 5 s filled, longer flagged soc_gap) (trips: TripB07, TripB09, TripB28, TripB34; values changed: 30748)
+- Missing values in key signals: SoC: nearest value (trip edge) (gaps <= 5 s filled, longer flagged soc_gap) (trips: TripB05, TripB06, TripB08, TripB10, TripB11, TripB12, TripB13, TripB14, TripB18, TripB19, TripB20, TripB21, TripB22, TripB23, TripB24, TripB25, TripB26, TripB29, TripB30, TripB31, TripB32, TripB35, TripB36, TripB37; values changed: 46)
+- Heating power spike: kept: four independent signals agree, so it is a real event; flagged in heating_extreme for the anomaly step (trips: TripB02; values changed: 0)
+- Column entirely empty: coolant flow never logged in these trips: left missing (trips: TripB05, TripB06; values changed: 0)
+- Coolant flow offset: added coolant_flow_lph = raw + 500 (raw column kept) (trips: winter trips; values changed: 598759)
+- Stale CAN heating power (found in notebook 04): heating_power_can_kw > 0.5 kW while requested < 100 W set to missing, flagged heating_can_invalid (trips: TripA03, TripA04, TripA05, TripA06, TripA08, TripA09, TripA13, TripA14, TripA18, TripA20; values changed: 77442)
+- Trips contain charging phases: phase label added (charging = parked, > +20 A for >= 60 s) (trips: TripB04, TripB09; values changed: 39361)
+- Inconsistent date formats: both patterns parsed into start_time (trips: Overview.xlsx; values changed: 70)
+- Unlabelled column in Overview.xlsx: named soc_used_frac (start SoC minus end SoC) (trips: Overview.xlsx; values changed: 70)
+- Duplicate trip start timestamps: kept both; trip_id is the key, not start_time (trips: TripA30, TripA31; values changed: 0)
