@@ -1,0 +1,41 @@
+flag_id,level,trip_id,time_s,detector,score,reason,season,route
+1,event,TripB25,353.5,A · battery resistance,7.48,"resistance 224 mΩ vs about 121 mΩ expected at 12 °C (1.8×); SoC 39 %: the expected curve ignores SoC, and resistance is higher in the lower half; moderate current (101 A), so the estimate is noisier; 4 flagged events in this trip: a persistent state, not a one-off spike",winter,Munich North
+2,event,TripB02,1346.0,A · battery resistance,7.18,"resistance 187 mΩ vs about 104 mΩ expected at 16 °C (1.8×); moderate current (112 A), so the estimate is noisier",winter,FTMRoute
+3,event,TripB25,319.5,A · battery resistance,6.85,"resistance 204 mΩ vs about 116 mΩ expected at 13 °C (1.8×); SoC 41 %: the expected curve ignores SoC, and resistance is higher in the lower half; moderate current (108 A), so the estimate is noisier; 4 flagged events in this trip: a persistent state, not a one-off spike",winter,Munich North
+4,event,TripB14,2547.3,A · battery resistance,6.75,"resistance 211 mΩ vs about 121 mΩ expected at 12 °C (1.7×); SoC 48 %: the expected curve ignores SoC, and resistance is higher in the lower half; moderate current (92 A), so the estimate is noisier; 6 flagged events in this trip: a persistent state, not a one-off spike",winter,Highway
+5,event,TripB14,2538.8,A · battery resistance,6.56,"resistance 208 mΩ vs about 121 mΩ expected at 12 °C (1.7×); SoC 48 %: the expected curve ignores SoC, and resistance is higher in the lower half; moderate current (93 A), so the estimate is noisier; 6 flagged events in this trip: a persistent state, not a one-off spike",winter,Highway
+6,event,TripB14,2523.7,A · battery resistance,6.43,"resistance 197 mΩ vs about 116 mΩ expected at 13 °C (1.7×); SoC 49 %: the expected curve ignores SoC, and resistance is higher in the lower half; moderate current (97 A), so the estimate is noisier; 6 flagged events in this trip: a persistent state, not a one-off spike",winter,Highway
+7,event,TripB25,341.4,A · battery resistance,6.36,"resistance 196 mΩ vs about 116 mΩ expected at 13 °C (1.7×); SoC 40 %: the expected curve ignores SoC, and resistance is higher in the lower half; 4 flagged events in this trip: a persistent state, not a one-off spike",winter,Munich North
+8,event,TripB25,312.7,A · battery resistance,5.9,"resistance 197 mΩ vs about 121 mΩ expected at 12 °C (1.6×); SoC 41 %: the expected curve ignores SoC, and resistance is higher in the lower half; moderate current (114 A), so the estimate is noisier; 4 flagged events in this trip: a persistent state, not a one-off spike",winter,Munich North
+9,event,TripB14,2556.3,A · battery resistance,5.47,"resistance 190 mΩ vs about 121 mΩ expected at 12 °C (1.6×); SoC 47 %: the expected curve ignores SoC, and resistance is higher in the lower half; moderate current (113 A), so the estimate is noisier; 6 flagged events in this trip: a persistent state, not a one-off spike",winter,Highway
+10,event,TripB19,623.1,A · battery resistance,5.09,"resistance 221 mΩ vs about 146 mΩ expected at 8 °C (1.5×); moderate current (102 A), so the estimate is noisier",winter,Munich North
+11,event,TripB09,2599.6,A · battery resistance,4.91,"resistance 198 mΩ vs about 133 mΩ expected at 10 °C (1.5×); SoC 27 %: the expected curve ignores SoC, and resistance is higher in the lower half; moderate current (101 A), so the estimate is noisier",winter,Munich South
+12,event,TripB14,2510.9,A · battery resistance,4.83,"resistance 173 mΩ vs about 116 mΩ expected at 13 °C (1.5×); SoC 49 %: the expected curve ignores SoC, and resistance is higher in the lower half; moderate current (120 A), so the estimate is noisier; 6 flagged events in this trip: a persistent state, not a one-off spike",winter,Highway
+13,event,TripB10,755.1,A · battery resistance,4.74,"resistance 252 mΩ vs about 172 mΩ expected at 5 °C (1.5×); moderate current (70 A), so the estimate is noisier",winter,Highway
+14,event,TripA24,94.8,A · battery resistance,4.23,resistance 137 mΩ vs about 97 mΩ expected at 18 °C (1.4×),summer,Munich East
+15,event,TripA24,98.6,A · battery resistance,4.07,resistance 136 mΩ vs about 97 mΩ expected at 18 °C (1.4×),summer,Munich East
+16,event,TripB10,1010.0,A · battery resistance,4.06,resistance 204 mΩ vs about 146 mΩ expected at 8 °C (1.4×),winter,Highway
+17,event,TripB14,586.0,A · battery resistance,3.79,"resistance 247 mΩ vs about 182 mΩ expected at 4 °C (1.4×); moderate current (105 A), so the estimate is noisier; 6 flagged events in this trip: a persistent state, not a one-off spike",winter,Highway
+18,event,TripB09,2589.3,A · battery resistance,3.78,"resistance 181 mΩ vs about 133 mΩ expected at 10 °C (1.4×); SoC 28 %: the expected curve ignores SoC, and resistance is higher in the lower half; moderate current (110 A), so the estimate is noisier",winter,Munich South
+19,trip,TripB13,,C · unusual trip profile,0.606,"regeneration share high for its season (z +4.2, value 28.6); battery start temperature high for its season (z +2.5, value 20.0)",winter,Munich South
+20,trip,TripA04,,C · unusual trip profile,0.588,"battery warm-up rate high for its season (z +8.9, value 28.7); mean speed high for its season (z +2.6, value 102.7)",summer,Munich East
+21,trip,TripB09,,C · unusual trip profile,0.588,"voltage-sag events high for its season (z +6.5, value 57.0); battery warm-up rate high for its season (z +2.4, value 18.9)",winter,Munich South
+22,trip,TripB10,,C · unusual trip profile,0.573,"voltage-sag events high for its season (z +4.7, value 44.0); battery warm-up rate high for its season (z +3.4, value 22.9)",winter,Highway
+23,trip,TripB12,,C · unusual trip profile,0.55,"battery start temperature high for its season (z +2.9, value 22.0); battery warm-up rate low for its season (z -2.1, value 0.0)",winter,Highway
+24,trip,TripA07,,C · unusual trip profile,0.548,"acceleration low for its season (z -4.2, value 0.3); battery start temperature high for its season (z +2.8, value 31.0)",summer,Munich North
+25,trip,TripA08,,C · unusual trip profile,0.538,"time stopped high for its season (z +4.8, value 0.3); acceleration high for its season (z +2.6, value 0.6)",summer,Munich East
+26,trip,TripB02,,D · signal quality,1273.0,"extreme heating power above 14 kW for 127 s, confirmed by four independent signals: a real event, check the heater control",winter,FTMRoute
+27,trip,TripA06,,D · signal quality,0.999,"CAN heating power stale in 100% of samples (heating reported, none requested)",summer,Munich North
+28,trip,TripA20,,D · signal quality,0.85,"CAN heating power stale in 85% of samples (heating reported, none requested)",summer,Munich East
+29,trip,TripA03,,D · signal quality,0.819,"CAN heating power stale in 82% of samples (heating reported, none requested)",summer,Munich East
+30,trip,TripA13,,D · signal quality,0.79,"CAN heating power stale in 79% of samples (heating reported, none requested)",summer,Munich East
+31,trip,TripA05,,D · signal quality,0.767,"CAN heating power stale in 77% of samples (heating reported, none requested)",summer,Munich East
+32,trip,TripB34,,D · signal quality,0.601,SoC not logged for the last 60% of the trip,winter,Munich North
+33,trip,TripB09,,D · signal quality,0.366,SoC not logged for the last 37% of the trip,winter,Munich South
+34,trip,TripB07,,D · signal quality,0.182,SoC not logged for the last 18% of the trip,winter,Munich Northeast
+35,trip,TripB28,,D · signal quality,0.119,SoC not logged for the last 12% of the trip,winter,FTMRoute
+36,trip,TripA04,,D · signal quality,0.071,"CAN heating power stale in 7% of samples (heating reported, none requested)",summer,Munich East
+37,trip,TripA08,,D · signal quality,0.07,"CAN heating power stale in 7% of samples (heating reported, none requested)",summer,Munich East
+38,trip,TripA18,,D · signal quality,0.056,"CAN heating power stale in 6% of samples (heating reported, none requested)",summer,Munich East
+39,trip,TripA14,,D · signal quality,0.054,"CAN heating power stale in 5% of samples (heating reported, none requested)",summer,Munich East
+40,trip,TripA09,,D · signal quality,0.052,"CAN heating power stale in 5% of samples (heating reported, none requested)",summer,Munich East
