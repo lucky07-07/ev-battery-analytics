@@ -1,0 +1,13 @@
+variable,summer median [IQR],winter median [IQR],winter / summer,p (Mann-Whitney),n summer/winter
+ambient temperature (°C),22.3 [18.6–25.2],5.1 [3.4–6.5],0.23,8e-13,32/38
+battery temperature at start (°C),20.5 [18.8–23.2],9.0 [5.2–11.0],0.44,1e-11,32/38
+distance (km),16.1 [11.6–19.4],16.7 [14.8–19.2],1.04,0.2,32/38
+mean driving speed (km/h),46.6 [34.0–61.7],54.1 [48.0–64.5],1.16,0.06,32/38
+share of time stopped,0.1 [0.1–0.1],0.1 [0.1–0.2],,0.03,32/38
+consumption (kWh/100 km),13.3 [12.2–15.1],19.1 [17.4–20.9],1.43,5e-11,32/38
+heating (kWh/100 km),0.0 [0.0–0.6],3.8 [2.8–4.7],,6e-12,32/38
+consumption without heating and A/C (kWh/100 km),12.1 [10.8–13.2],15.1 [14.5–15.9],1.25,7e-07,32/38
+energy recovered by regeneration (%),23.1 [17.7–30.5],11.6 [9.0–14.5],0.5,2e-07,32/38
+battery temperature rise (°C),1.0 [1.0–2.0],3.0 [2.0–4.0],3.0,1e-05,32/38
+apparent pack resistance (mΩ),91.5 [77.9–97.0],135.6 [120.3–163.0],1.48,7e-10,21/35
+voltage-sag events per 10 km,0.9 [0.0–1.9],5.5 [3.0–7.9],6.33,2e-07,32/38
