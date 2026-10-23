@@ -1,0 +1,23 @@
+issue,scope,detail,severity,step02_handling
+Missing values in key signals,TripB34,SoC [%] 60.1%,high,interpolate short gaps only; flag long gaps and exclude them from SoC modelling
+Missing values in key signals,TripB28,SoC [%] 11.9%,high,interpolate short gaps only; flag long gaps and exclude them from SoC modelling
+Missing values in key signals,TripB09,SoC [%] 36.6%,high,interpolate short gaps only; flag long gaps and exclude them from SoC modelling
+Missing values in key signals,TripB07,SoC [%] 18.2%,high,interpolate short gaps only; flag long gaps and exclude them from SoC modelling
+Value outside physical limits,TripB14,SoC [%]: 1 rows [0.0] at rows 38219..38219 of 38220,medium,"set to missing, then treat as a gap"
+Missing values in key signals,TripB13,SoC [%] 0.4%,medium,interpolate short gaps only; flag long gaps and exclude them from SoC modelling
+Heating power spike,TripB02,Heating Power LIN [W] reaches 38871 W (1273 rows above 13993 W),medium,"inspect; likely a bus glitch, clip or set to missing"
+SoC jump between consecutive samples,TripB14,"1 jumps, largest 34.6 points",medium,check if caused by gaps; otherwise treat as glitch
+Trips contain charging phases,"TripB04, TripB09",speed is zero while current is strongly positive: the car was charged during the recording,medium,label driving / charging / idle phases; analyse charging separately from driving
+Header: malformed unit bracket,"70 trips (e.g. TripA01, TripA02, TripA03)",'max. SoC [%)',low,map every raw header to one clean snake_case name
+Header: empty header name (trailing separator),1 trips (e.g. TripA11),'',low,map every raw header to one clean snake_case name
+Header: duplicate column name,"38 trips (e.g. TripB01, TripB02, TripB03)",'Temperature Vent right [°C]',low,map every raw header to one clean snake_case name
+Duplicate trip start timestamps,Overview.xlsx,"TripA30, TripA31 have identical start times",low,keep both trips; do not use start time as a unique key
+Header: malformed unit bracket,1 trips (e.g. TripB38),'Velocity [km/h]]]',low,map every raw header to one clean snake_case name
+Trip count differs from dataset description,dataset,"description says 72 trips, 70 trip files are present",low,report the real count; use the files that exist
+Unlabelled column in Overview.xlsx,Overview.xlsx,'Unnamed: 8' has no header; it matches start SoC minus end SoC in 99% of rows,low,"name it soc_used if the match holds, otherwise drop"
+Column entirely empty,TripB06,'Coolant Volume Flow +500 [l/h]',low,drop for this trip
+Column entirely empty,TripB05,'Coolant Volume Flow +500 [l/h]',low,drop for this trip
+Inconsistent date formats,Overview.xlsx,dates use both 'YYYY-MM-DD_hh-mm-ss' and 'YYYY_MM_DD_hh-mm-ss',low,parse both patterns into one datetime
+Current sign convention,all trips,"discharge is negative (mean -32 A under throttle), regeneration positive (mean 32 A)",info,keep as is; document it in the data card
+Two different SoC signals,all trips,displayed SoC is about 10 points above the true SoC (usable-window buffer),info,model the true SoC; keep displayed SoC for comparison only
+Coarse battery temperature,all trips,battery temperature is logged in whole degrees (at least 99% of readings per trip; the rest are in-between values),info,do not over-interpret small temperature changes

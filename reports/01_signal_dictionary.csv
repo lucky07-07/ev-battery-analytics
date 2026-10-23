@@ -1,0 +1,50 @@
+raw_header,signal,unit,group,in_A_trips,in_B_trips
+Time [s],Time,s,time,32,38
+Velocity [km/h],Velocity,km/h,driving,32,37
+Velocity [km/h]]],Velocity,km/h,driving,0,1
+Elevation [m],Elevation,m,environment,32,38
+Throttle [%],Throttle,%,driving,32,38
+Motor Torque [Nm],Motor Torque,Nm,driving,32,38
+Longitudinal Acceleration [m/s^2],Longitudinal Acceleration,m/s^2,driving,32,38
+Regenerative Braking Signal,Regenerative Braking Signal,(none),driving,32,38
+Battery Voltage [V],Battery Voltage,V,battery,32,38
+Battery Current [A],Battery Current,A,battery,32,38
+Battery Temperature [°C],Battery Temperature,°C,battery,32,38
+max. Battery Temperature [°C],max. Battery Temperature,°C,battery,32,38
+SoC [%],SoC,%,battery,32,38
+displayed SoC [%],displayed SoC,%,battery,32,38
+min. SoC [%],min. SoC,%,battery,32,38
+max. SoC [%),max. SoC,%,battery,32,38
+Heating Power CAN [kW],Heating Power CAN,kW,heating & climate,32,38
+Requested Heating Power [W],Requested Heating Power,W,heating & climate,32,38
+Heating Power LIN [W],Heating Power LIN,W,heating & climate,12,38
+AirCon Power [kW],AirCon Power,kW,heating & climate,32,38
+Heater Signal,Heater Signal,(none),heating & climate,32,38
+Ambient Temperature [°C],Ambient Temperature,°C,environment,32,38
+Heater Voltage [V],Heater Voltage,V,heating & climate,12,38
+Requested Coolant Temperature [°C],Requested Coolant Temperature,°C,heating & climate,31,38
+Heat Exchanger Temperature [°C],Heat Exchanger Temperature,°C,heating & climate,32,38
+Heater Current [A],Heater Current,A,heating & climate,12,38
+Cabin Temperature Sensor [°C],Cabin Temperature Sensor,°C,cabin temperatures,32,38
+,,(none),(empty header),1,0
+Coolant Temperature Heatercore [°C],Coolant Temperature Heatercore,°C,heating & climate,12,38
+Ambient Temperature Sensor [°C],Ambient Temperature Sensor,°C,environment,0,38
+Coolant Temperature Inlet [°C],Coolant Temperature Inlet,°C,heating & climate,12,38
+Coolant Volume Flow +500 [l/h],Coolant Volume Flow +500,l/h,heating & climate,0,38
+Temperature Coolant Heater Inlet [°C],Temperature Coolant Heater Inlet,°C,heating & climate,0,38
+Temperature Coolant Heater Outlet [°C],Temperature Coolant Heater Outlet,°C,heating & climate,0,38
+Temperature Heat Exchanger Outlet [°C],Temperature Heat Exchanger Outlet,°C,heating & climate,0,38
+Temperature Defrost lateral left [°C],Temperature Defrost lateral left,°C,cabin temperatures,0,38
+Temperature Defrost lateral right [°C],Temperature Defrost lateral right,°C,cabin temperatures,0,38
+Temperature Defrost central [°C],Temperature Defrost central,°C,cabin temperatures,0,38
+Temperature Defrost central left [°C],Temperature Defrost central left,°C,cabin temperatures,0,38
+Temperature Defrost central right [°C],Temperature Defrost central right,°C,cabin temperatures,0,38
+Temperature Footweel Driver [°C],Temperature Footweel Driver,°C,cabin temperatures,0,38
+Temperature Footweel Co-Driver [°C],Temperature Footweel Co-Driver,°C,cabin temperatures,0,38
+Temperature Feetvent Co-Driver [°C],Temperature Feetvent Co-Driver,°C,cabin temperatures,0,38
+Temperature Feetvent Driver [°C],Temperature Feetvent Driver,°C,cabin temperatures,0,38
+Temperature Head Co-Driver [°C],Temperature Head Co-Driver,°C,cabin temperatures,0,38
+Temperature Head Driver [°C],Temperature Head Driver,°C,cabin temperatures,0,38
+Temperature Vent right [°C],Temperature Vent right,°C,cabin temperatures,0,38
+Temperature Vent central right [°C],Temperature Vent central right,°C,cabin temperatures,0,38
+Temperature Vent central left [°C],Temperature Vent central left,°C,cabin temperatures,0,38
