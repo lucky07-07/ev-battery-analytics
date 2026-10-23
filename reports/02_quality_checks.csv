@@ -1,0 +1,11 @@
+check,failures,passed
+raw and clean have the same number of rows,0,True
+no rows lost while reading the CSV files,0,True
+one row per trip and timestamp,0,True
+time strictly increasing within each trip,0,True
+every trip has metadata and every metadata row has samples,0,True
+no values outside physical limits,0,True
+phase is always one of driving / stopped / charging,0,True
+SoC is missing only where flagged as a gap,0,True
+"core battery signals complete (voltage, current, temperature)",0,True
+"raw values unchanged outside logged fixes (voltage, current, speed)",0,True
