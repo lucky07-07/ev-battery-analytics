@@ -1,0 +1,15 @@
+# environments
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+
+# data and generated artefacts (rebuilt by the notebooks)
+data/
+models/
+
+# Power BI local state
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+
+# tooling
+.vscode/
