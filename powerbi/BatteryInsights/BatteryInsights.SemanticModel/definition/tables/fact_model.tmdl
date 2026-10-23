@@ -1,0 +1,100 @@
+/// Model accuracy per task, model and split.
+table fact_model
+	lineageTag: 7d2c06af-67c9-5308-8fb3-8c1e0b23812c
+
+	/// Mean absolute SoC error on unseen test trips (percentage points).
+	measure 'SoC Model Error' = CALCULATE ( MAX ( fact_model[mae] ), fact_model[task] = "A · SoC estimation", fact_model[split] = "test", fact_model[is_selected] = 1 )
+		formatString: 0.0
+		displayFolder: Models
+		lineageTag: 5cb438bf-9a45-572c-a0ca-71bb7ebcd924
+
+	/// Mean absolute error of segment energy on unseen test trips (kWh/100 km).
+	measure 'Energy Model Error' = CALCULATE ( MAX ( fact_model[mae] ), fact_model[task] = "B · segment energy", fact_model[split] = "test", fact_model[is_selected] = 1 )
+		formatString: 0.0
+		displayFolder: Models
+		lineageTag: c38269f2-6399-5ddb-adb1-272cb0d2f0f2
+
+	column task
+		dataType: string
+		lineageTag: da21f908-5e95-503a-9a59-1e0d849f9d69
+		summarizeBy: none
+		sourceColumn: task
+
+		annotation SummarizationSetBy = User
+
+	column split
+		dataType: string
+		lineageTag: 151f4370-9195-584e-8364-ac22e5e73147
+		summarizeBy: none
+		sourceColumn: split
+
+		annotation SummarizationSetBy = User
+
+	column stage
+		dataType: string
+		lineageTag: f12b25a6-daab-543e-88c1-51f2fcd49111
+		summarizeBy: none
+		sourceColumn: stage
+
+		annotation SummarizationSetBy = User
+
+	column model
+		dataType: string
+		lineageTag: 733eee33-03c1-548f-9018-47e98145d717
+		summarizeBy: none
+		sourceColumn: model
+
+		annotation SummarizationSetBy = User
+
+	column family
+		dataType: string
+		lineageTag: 753b79a0-7497-5cb6-8365-3be11f33524a
+		summarizeBy: none
+		sourceColumn: family
+
+		annotation SummarizationSetBy = User
+
+	column mae
+		dataType: double
+		lineageTag: 930ed3a6-a84e-5e65-b385-2e2270573564
+		summarizeBy: none
+		sourceColumn: mae
+
+		annotation SummarizationSetBy = User
+
+	column rmse
+		dataType: double
+		lineageTag: c168e296-4558-5ecb-a3af-8eabfc2eb9ab
+		summarizeBy: none
+		sourceColumn: rmse
+
+		annotation SummarizationSetBy = User
+
+	column r2
+		dataType: double
+		lineageTag: 89b71562-f696-536b-99ca-e194bb4baf80
+		summarizeBy: none
+		sourceColumn: r2
+
+		annotation SummarizationSetBy = User
+
+	column is_selected
+		dataType: int64
+		formatString: 0
+		lineageTag: 7ee78659-5a2b-5393-ac90-71b72355afcb
+		summarizeBy: none
+		sourceColumn: is_selected
+
+		annotation SummarizationSetBy = User
+
+	partition fact_model = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "fact_model.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"task", type text}, {"split", type text}, {"stage", type text}, {"model", type text}, {"family", type text}, {"mae", type number}, {"rmse", type number}, {"r2", type number}, {"is_selected", Int64.Type}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

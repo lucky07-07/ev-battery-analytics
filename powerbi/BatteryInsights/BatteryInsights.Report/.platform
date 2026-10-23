@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "BatteryInsights"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "550a8140-2bf2-5b7a-add7-fe3cb1be3e30"
+  }
+}

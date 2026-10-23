@@ -1,0 +1,15 @@
+relationship d240f521-3223-5505-b09f-c40c557148b2
+	fromColumn: fact_trip.trip_id
+	toColumn: dim_trip.trip_id
+
+relationship e8d24ebe-22be-5caf-a7b0-d3b846562985
+	fromColumn: fact_sag_event.trip_id
+	toColumn: dim_trip.trip_id
+
+relationship 5ca17e90-ddff-5bc7-bce2-111b99eefed4
+	fromColumn: fact_soc_test.trip_id
+	toColumn: dim_trip.trip_id
+
+relationship 8d01fa63-5f21-5594-a8dc-31ec6bb25171
+	fromColumn: fact_anomaly.trip_id
+	toColumn: dim_trip.trip_id

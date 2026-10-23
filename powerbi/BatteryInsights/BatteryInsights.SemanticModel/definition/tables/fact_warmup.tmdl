@@ -1,0 +1,61 @@
+/// Mean heating power and cabin temperature per minute since start (winter trips).
+table fact_warmup
+	lineageTag: c791f326-62f3-5c85-ac4f-9d4948234764
+
+	/// Mean heating power (kW).
+	measure 'Heater Power' = AVERAGE ( fact_warmup[heating_kw] )
+		formatString: 0.0
+		displayFolder: Energy
+		lineageTag: f3b57f6a-dfb7-5cdb-985a-6daccc241477
+
+	/// Mean cabin temperature.
+	measure 'Cabin Temp' = AVERAGE ( fact_warmup[cabin_temp_c] )
+		formatString: 0.0
+		displayFolder: Energy
+		lineageTag: d0e8caec-e8b8-5dda-a0ec-b1759ee2bd99
+
+	column minute
+		dataType: int64
+		formatString: 0
+		lineageTag: fe8559a0-b0f9-56e2-a644-78a274f43567
+		summarizeBy: none
+		sourceColumn: minute
+
+		annotation SummarizationSetBy = User
+
+	column heating_kw
+		dataType: double
+		lineageTag: fbc309e5-945b-5b45-8a10-ded7e969f944
+		summarizeBy: none
+		sourceColumn: heating_kw
+
+		annotation SummarizationSetBy = User
+
+	column cabin_temp_c
+		dataType: double
+		lineageTag: 7a8e2e42-536f-5257-b9a0-91b76203ad27
+		summarizeBy: none
+		sourceColumn: cabin_temp_c
+
+		annotation SummarizationSetBy = User
+
+	column trips
+		dataType: int64
+		formatString: 0
+		lineageTag: 87eb0527-56e0-51a1-997f-056ae2be0c5d
+		summarizeBy: none
+		sourceColumn: trips
+
+		annotation SummarizationSetBy = User
+
+	partition fact_warmup = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "fact_warmup.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"minute", Int64.Type}, {"heating_kw", type number}, {"cabin_temp_c", type number}, {"trips", Int64.Type}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

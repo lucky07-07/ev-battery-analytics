@@ -1,0 +1,59 @@
+/// SoC recorded vs model estimate on unseen test trips (5 s steps).
+table fact_soc_test
+	lineageTag: e75471e6-6223-5a3b-9199-03fcde13a375
+
+	/// SoC logged by the car.
+	measure 'SoC Recorded' = AVERAGE ( fact_soc_test[soc_recorded] )
+		formatString: 0.0
+		displayFolder: Models
+		lineageTag: 7c39bffb-cad2-5596-88f2-a613e1f3952d
+
+	/// SoC estimated by the model from voltage, current and temperature.
+	measure 'SoC Estimated' = AVERAGE ( fact_soc_test[soc_estimated] )
+		formatString: 0.0
+		displayFolder: Models
+		lineageTag: d42fd06f-19b9-55e4-8730-f932a24eadee
+
+	column trip_id
+		dataType: string
+		lineageTag: e737938d-fb3d-58df-a031-558b529772b0
+		summarizeBy: none
+		sourceColumn: trip_id
+
+		annotation SummarizationSetBy = User
+
+	column minute
+		dataType: double
+		lineageTag: fd321007-8b51-56eb-a9e0-ed53e3d8431b
+		summarizeBy: none
+		sourceColumn: minute
+
+		annotation SummarizationSetBy = User
+
+	column soc_recorded
+		dataType: double
+		lineageTag: 07c7d282-9e70-5b58-8226-e178ee874a7a
+		summarizeBy: none
+		sourceColumn: soc_recorded
+
+		annotation SummarizationSetBy = User
+
+	column soc_estimated
+		dataType: double
+		lineageTag: ade02d39-5ec4-5093-b1f9-51b8370b94b8
+		summarizeBy: none
+		sourceColumn: soc_estimated
+
+		annotation SummarizationSetBy = User
+
+	partition fact_soc_test = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "fact_soc_test.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"trip_id", type text}, {"minute", type number}, {"soc_recorded", type number}, {"soc_estimated", type number}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,110 @@
+/// One row per trip (BMW i3, Munich, 2019-2020).
+table dim_trip
+	lineageTag: 68d563b1-fd8c-5939-8a65-9f2adc51a353
+
+	/// Number of trips.
+	measure Trips = COUNTROWS ( dim_trip )
+		formatString: #,0
+		displayFolder: Energy
+		lineageTag: 617d0103-b754-519c-94af-12fcf53b00f7
+
+	column trip_id
+		dataType: string
+		lineageTag: 32135b53-339e-544c-a806-0ae5a6b3c57b
+		summarizeBy: none
+		sourceColumn: trip_id
+
+		annotation SummarizationSetBy = User
+
+	column trip_label
+		dataType: string
+		lineageTag: 3d1bb3ef-867f-5721-bc68-ff151f8da2cd
+		summarizeBy: none
+		sourceColumn: trip_label
+
+		annotation SummarizationSetBy = User
+
+	column season
+		dataType: string
+		lineageTag: 428e6845-fe91-583e-8f26-0c8862be586d
+		summarizeBy: none
+		sourceColumn: season
+
+		annotation SummarizationSetBy = User
+
+	column route
+		dataType: string
+		lineageTag: d4b8c852-d949-5cd8-a094-3ca20acd1f72
+		summarizeBy: none
+		sourceColumn: route
+
+		annotation SummarizationSetBy = User
+
+	column weather
+		dataType: string
+		lineageTag: c06ed415-15c8-52d9-a3d2-a721ea8e4297
+		summarizeBy: none
+		sourceColumn: weather
+
+		annotation SummarizationSetBy = User
+
+	column trip_date
+		dataType: string
+		lineageTag: 2e44ad62-84cf-5a6d-8a0c-f737963c4727
+		summarizeBy: none
+		sourceColumn: trip_date
+
+		annotation SummarizationSetBy = User
+
+	column distance_km
+		dataType: double
+		lineageTag: 7fb006f0-7943-5d8e-953a-a11fd2341356
+		summarizeBy: none
+		sourceColumn: distance_km
+
+		annotation SummarizationSetBy = User
+
+	column duration_min
+		dataType: double
+		lineageTag: 34d3660c-2df4-58c6-b12b-fcf84b90abfd
+		summarizeBy: none
+		sourceColumn: duration_min
+
+		annotation SummarizationSetBy = User
+
+	column ambient_start_c
+		dataType: double
+		lineageTag: 9299a6db-bbfa-5f6b-bbc2-3ea691c3c4df
+		summarizeBy: none
+		sourceColumn: ambient_start_c
+
+		annotation SummarizationSetBy = User
+
+	column batt_temp_start_c
+		dataType: double
+		lineageTag: f7f8c352-b9f6-50f2-9e27-b587bf709fd5
+		summarizeBy: none
+		sourceColumn: batt_temp_start_c
+
+		annotation SummarizationSetBy = User
+
+	column is_test_trip
+		dataType: int64
+		formatString: 0
+		lineageTag: 957016ab-1d77-5164-9f79-96b312bb2e6f
+		summarizeBy: none
+		sourceColumn: is_test_trip
+
+		annotation SummarizationSetBy = User
+
+	partition dim_trip = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "dim_trip.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"trip_id", type text}, {"trip_label", type text}, {"season", type text}, {"route", type text}, {"weather", type text}, {"trip_date", type text}, {"distance_km", type number}, {"duration_min", type number}, {"ambient_start_c", type number}, {"batt_temp_start_c", type number}, {"is_test_trip", Int64.Type}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

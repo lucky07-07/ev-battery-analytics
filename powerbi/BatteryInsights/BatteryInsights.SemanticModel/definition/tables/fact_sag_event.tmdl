@@ -1,0 +1,120 @@
+/// Voltage-sag events with apparent and expected pack resistance.
+table fact_sag_event
+	lineageTag: c2008f78-c2f8-5176-835d-49e8384444b2
+
+	/// Voltage-sag events.
+	measure 'Sag Events' = COUNTROWS ( fact_sag_event )
+		formatString: #,0
+		displayFolder: Battery
+		lineageTag: 8568f493-4546-5795-9bdd-3bfd2d47df8b
+
+	/// Median apparent pack resistance (milliohm).
+	measure 'Median Resistance' = MEDIAN ( fact_sag_event[resistance_mohm] )
+		formatString: 0
+		displayFolder: Battery
+		lineageTag: 3f301570-04f6-5792-bf56-3c5ee4c82f14
+
+	/// Apparent pack resistance (milliohm).
+	measure Resistance = AVERAGE ( fact_sag_event[resistance_mohm] )
+		formatString: 0
+		displayFolder: Battery
+		lineageTag: 838bafa8-d288-5288-ab6f-4d72703152fa
+
+	/// Battery temperature at the event.
+	measure 'Battery Temp' = AVERAGE ( fact_sag_event[batt_temp_c] )
+		formatString: 0.0
+		displayFolder: Battery
+		lineageTag: d169f5e2-f313-50ee-b5bd-cfc5f5a03826
+
+	column event_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 6ceff04d-70bf-587f-b0bf-f2f6c13685f7
+		summarizeBy: none
+		sourceColumn: event_id
+
+		annotation SummarizationSetBy = User
+
+	column trip_id
+		dataType: string
+		lineageTag: 18747d9f-a872-5d63-b5b6-1a2dabb2f27d
+		summarizeBy: none
+		sourceColumn: trip_id
+
+		annotation SummarizationSetBy = User
+
+	column start_s
+		dataType: double
+		lineageTag: 2abb759f-7fc8-5d11-b5f4-2a7554d4fe1f
+		summarizeBy: none
+		sourceColumn: start_s
+
+		annotation SummarizationSetBy = User
+
+	column batt_temp_c
+		dataType: double
+		lineageTag: 3681b684-83ec-5072-b761-40355a48f09e
+		summarizeBy: none
+		sourceColumn: batt_temp_c
+
+		annotation SummarizationSetBy = User
+
+	column soc_pct
+		dataType: double
+		lineageTag: 09d4e262-0de2-5304-9a85-3e0994e014b1
+		summarizeBy: none
+		sourceColumn: soc_pct
+
+		annotation SummarizationSetBy = User
+
+	column discharge_current_a
+		dataType: double
+		lineageTag: 76c687a4-d67b-54df-b206-83d018cb71e2
+		summarizeBy: none
+		sourceColumn: discharge_current_a
+
+		annotation SummarizationSetBy = User
+
+	column sag_v
+		dataType: double
+		lineageTag: 348ccd1a-b3f7-5514-8ed4-e1e32aed8fd6
+		summarizeBy: none
+		sourceColumn: sag_v
+
+		annotation SummarizationSetBy = User
+
+	column resistance_mohm
+		dataType: double
+		lineageTag: 01f9ebdc-a385-5ae3-9f06-145359dc2f87
+		summarizeBy: none
+		sourceColumn: resistance_mohm
+
+		annotation SummarizationSetBy = User
+
+	column expected_resistance_mohm
+		dataType: double
+		lineageTag: 6d1d87ec-782f-5faf-9bd9-7f798830e0e9
+		summarizeBy: none
+		sourceColumn: expected_resistance_mohm
+
+		annotation SummarizationSetBy = User
+
+	column status
+		dataType: string
+		lineageTag: 496f363b-c728-5f03-ab48-aa19d02e508f
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = User
+
+	partition fact_sag_event = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "fact_sag_event.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"event_id", Int64.Type}, {"trip_id", type text}, {"start_s", type number}, {"batt_temp_c", type number}, {"soc_pct", type number}, {"discharge_current_a", type number}, {"sag_v", type number}, {"resistance_mohm", type number}, {"expected_resistance_mohm", type number}, {"status", type text}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

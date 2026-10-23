@@ -1,0 +1,63 @@
+/// Importance of each input per model.
+table fact_driver
+	lineageTag: f616824e-edd8-5467-aa81-198d531c43da
+
+	/// Share of total importance.
+	measure 'Driver Share' = SUM ( fact_driver[share] )
+		formatString: 0%
+		displayFolder: Models
+		lineageTag: 7a66854d-728c-5b3d-9965-a0f4e405fb03
+
+	column task
+		dataType: string
+		lineageTag: fa62bb44-ed69-5a6a-8cac-16530710c869
+		summarizeBy: none
+		sourceColumn: task
+
+		annotation SummarizationSetBy = User
+
+	column feature
+		dataType: string
+		lineageTag: d29e647b-0e1f-5d07-9697-87d6a51e3fe7
+		summarizeBy: none
+		sourceColumn: feature
+
+		annotation SummarizationSetBy = User
+
+	column importance
+		dataType: double
+		lineageTag: d9e1b497-a7c5-5780-9d21-bb767eb94e90
+		summarizeBy: none
+		sourceColumn: importance
+
+		annotation SummarizationSetBy = User
+
+	column share
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 6f67ddea-b9a1-5712-9c3c-a5df277258d6
+		summarizeBy: none
+		sourceColumn: share
+
+		annotation SummarizationSetBy = User
+
+	column rank
+		dataType: int64
+		formatString: 0
+		lineageTag: 82403ab3-ee16-5639-9adb-a0b2d1a2eb02
+		summarizeBy: none
+		sourceColumn: rank
+
+		annotation SummarizationSetBy = User
+
+	partition fact_driver = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "fact_driver.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"task", type text}, {"feature", type text}, {"importance", type number}, {"share", type number}, {"rank", Int64.Type}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

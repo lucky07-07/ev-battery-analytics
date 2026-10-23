@@ -1,0 +1,92 @@
+{
+  "name": "BatteryInsights",
+  "dataColors": [
+    "#2D7FF9",
+    "#F29C38",
+    "#13A89E",
+    "#E4572E",
+    "#7A5CFA",
+    "#B8C1CE",
+    "#0E1E33",
+    "#D7263D"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#14213D",
+  "tableAccent": "#2D7FF9",
+  "good": "#13A89E",
+  "neutral": "#F29C38",
+  "bad": "#D7263D",
+  "textClasses": {
+    "callout": {
+      "fontSize": 24,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#14213D"
+    },
+    "title": {
+      "fontSize": 11,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#14213D"
+    },
+    "header": {
+      "fontSize": 11,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#14213D"
+    },
+    "label": {
+      "fontSize": 9,
+      "fontFace": "Segoe UI",
+      "color": "#5B6576"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "valueAxis": [
+          {
+            "gridlineColor": {
+              "solid": {
+                "color": "#EEF1F5"
+              }
+            },
+            "labelColor": {
+              "solid": {
+                "color": "#5B6576"
+              }
+            },
+            "titleColor": {
+              "solid": {
+                "color": "#5B6576"
+              }
+            },
+            "fontSize": 9
+          }
+        ],
+        "categoryAxis": [
+          {
+            "labelColor": {
+              "solid": {
+                "color": "#5B6576"
+              }
+            },
+            "titleColor": {
+              "solid": {
+                "color": "#5B6576"
+              }
+            },
+            "fontSize": 9
+          }
+        ],
+        "legend": [
+          {
+            "labelColor": {
+              "solid": {
+                "color": "#5B6576"
+              }
+            },
+            "fontSize": 9
+          }
+        ]
+      }
+    }
+  }
+}

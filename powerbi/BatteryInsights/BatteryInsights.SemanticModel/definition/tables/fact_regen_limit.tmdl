@@ -1,0 +1,57 @@
+/// 99th-percentile regeneration current per battery-temperature band.
+table fact_regen_limit
+	lineageTag: c87095c5-5de3-5bc7-be81-c4eca996c169
+
+	/// 99th-percentile regeneration current (A).
+	measure 'Regen Limit' = MAX ( fact_regen_limit[regen_current_p99_a] )
+		formatString: 0
+		displayFolder: Battery
+		lineageTag: 6234448c-6576-539f-a151-9a3be5f88c1c
+
+	column band_low_c
+		dataType: int64
+		formatString: 0
+		isHidden
+		lineageTag: 91ad9800-8103-5642-a513-481c8de01969
+		summarizeBy: none
+		sourceColumn: band_low_c
+
+		annotation SummarizationSetBy = User
+
+	column batt_temp_band
+		dataType: string
+		lineageTag: f4e25d55-ba4c-5d98-b35c-1edb8dc65d35
+		summarizeBy: none
+		sourceColumn: batt_temp_band
+		sortByColumn: band_low_c
+
+		annotation SummarizationSetBy = User
+
+	column regen_current_p99_a
+		dataType: double
+		lineageTag: 75d09816-b860-51f9-ba02-e7b2d2ad27fa
+		summarizeBy: none
+		sourceColumn: regen_current_p99_a
+
+		annotation SummarizationSetBy = User
+
+	column samples
+		dataType: int64
+		formatString: 0
+		lineageTag: 4cd7eefb-7947-53e1-b693-759102705e70
+		summarizeBy: none
+		sourceColumn: samples
+
+		annotation SummarizationSetBy = User
+
+	partition fact_regen_limit = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "fact_regen_limit.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"band_low_c", Int64.Type}, {"batt_temp_band", type text}, {"regen_current_p99_a", type number}, {"samples", Int64.Type}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,167 @@
+/// Per-trip energy, distance, climate load and anomaly scores.
+table fact_trip
+	lineageTag: 0ba37a31-3a85-5126-ad27-bc72ec3bb6d4
+
+	/// Distance integrated from speed.
+	measure 'Distance km' = SUM ( fact_trip[distance_km] )
+		formatString: #,0
+		displayFolder: Energy
+		lineageTag: 46646363-cd08-5126-bbb7-096591ab0bf5
+
+	/// Net battery energy per 100 km (drawn minus recovered), distance-weighted.
+	measure Consumption = DIVIDE ( SUM ( fact_trip[energy_net_kwh] ), SUM ( fact_trip[distance_km] ) ) * 100
+		formatString: 0.0
+		displayFolder: Energy
+		lineageTag: 3037574a-3d5e-5b97-82b5-0d5238a05150
+
+	/// Consumption without heating and A/C, kWh per 100 km.
+	measure Traction = DIVIDE ( SUM ( fact_trip[energy_net_kwh] ) - SUM ( fact_trip[heating_kwh] ) - SUM ( fact_trip[aircon_kwh] ), SUM ( fact_trip[distance_km] ) ) * 100
+		formatString: 0.0
+		displayFolder: Energy
+		lineageTag: 5f03feb0-afa4-5011-86fa-5478cfda39d1
+
+	/// Cabin heating energy per 100 km.
+	measure Heating = DIVIDE ( SUM ( fact_trip[heating_kwh] ), SUM ( fact_trip[distance_km] ) ) * 100
+		formatString: 0.0
+		displayFolder: Energy
+		lineageTag: 7feca529-7e0d-5de4-9439-10676b7c5f68
+
+	/// A/C energy per 100 km.
+	measure 'Air conditioning' = DIVIDE ( SUM ( fact_trip[aircon_kwh] ), SUM ( fact_trip[distance_km] ) ) * 100
+		formatString: 0.0
+		displayFolder: Energy
+		lineageTag: c50fa4ec-ddd8-5bdd-ba5d-3871af1d4c46
+
+	/// Share of battery energy spent on cabin heating.
+	measure 'Heating Share' = DIVIDE ( SUM ( fact_trip[heating_kwh] ), SUM ( fact_trip[energy_out_kwh] ) )
+		formatString: 0.0%
+		displayFolder: Energy
+		lineageTag: db12d38d-6003-5c6f-a5f9-6599f1c993b4
+
+	/// Share of drawn energy recovered by regenerative braking.
+	measure 'Regen Share' = DIVIDE ( SUM ( fact_trip[energy_regen_kwh] ), SUM ( fact_trip[energy_out_kwh] ) )
+		formatString: 0.0%
+		displayFolder: Energy
+		lineageTag: 4ea21bea-ec1e-5e41-abf6-4fb72d59b0e7
+
+	/// Mean ambient temperature while driving.
+	measure 'Ambient Temp' = AVERAGE ( fact_trip[ambient_mean_c] )
+		formatString: 0.0
+		displayFolder: Energy
+		lineageTag: 27d90a3c-b093-58d0-afcf-cc828a69f5b3
+
+	column trip_id
+		dataType: string
+		lineageTag: b17c1171-380b-597e-a478-cadd276a0627
+		summarizeBy: none
+		sourceColumn: trip_id
+
+		annotation SummarizationSetBy = User
+
+	column distance_km
+		dataType: double
+		lineageTag: 55520be0-0c02-5ccf-bac5-513ebb87e331
+		summarizeBy: none
+		sourceColumn: distance_km
+
+		annotation SummarizationSetBy = User
+
+	column energy_out_kwh
+		dataType: double
+		lineageTag: 6f192185-7285-578f-b21b-a6866ff0ca04
+		summarizeBy: none
+		sourceColumn: energy_out_kwh
+
+		annotation SummarizationSetBy = User
+
+	column energy_regen_kwh
+		dataType: double
+		lineageTag: 0b8ee26a-c43e-5995-bb2b-1ccdc51eaa86
+		summarizeBy: none
+		sourceColumn: energy_regen_kwh
+
+		annotation SummarizationSetBy = User
+
+	column energy_net_kwh
+		dataType: double
+		lineageTag: 24d9809c-849c-5ce7-8678-d504360c125d
+		summarizeBy: none
+		sourceColumn: energy_net_kwh
+
+		annotation SummarizationSetBy = User
+
+	column heating_kwh
+		dataType: double
+		lineageTag: f5937898-0ad4-5dbe-9366-6044df00f06d
+		summarizeBy: none
+		sourceColumn: heating_kwh
+
+		annotation SummarizationSetBy = User
+
+	column aircon_kwh
+		dataType: double
+		lineageTag: 432fad62-484f-5a31-812b-17a25333ad71
+		summarizeBy: none
+		sourceColumn: aircon_kwh
+
+		annotation SummarizationSetBy = User
+
+	column energy_charged_kwh
+		dataType: double
+		lineageTag: c96a8833-25fd-5839-ad37-62ec4dc40480
+		summarizeBy: none
+		sourceColumn: energy_charged_kwh
+
+		annotation SummarizationSetBy = User
+
+	column mean_speed_kmh
+		dataType: double
+		lineageTag: ef39713b-b4d9-5192-b8d6-163388f3077d
+		summarizeBy: none
+		sourceColumn: mean_speed_kmh
+
+		annotation SummarizationSetBy = User
+
+	column ambient_mean_c
+		dataType: double
+		lineageTag: 592011f3-8ab3-5add-bd27-ea886c28eac5
+		summarizeBy: none
+		sourceColumn: ambient_mean_c
+
+		annotation SummarizationSetBy = User
+
+	column batt_temp_rise_c
+		dataType: double
+		lineageTag: 4bb7eee6-2ace-529b-80c2-23d03fcad99e
+		summarizeBy: none
+		sourceColumn: batt_temp_rise_c
+
+		annotation SummarizationSetBy = User
+
+	column expected_kwh_per_100km
+		dataType: double
+		lineageTag: 81aa4910-5d60-5877-8ec5-99985fba5d7f
+		summarizeBy: none
+		sourceColumn: expected_kwh_per_100km
+
+		annotation SummarizationSetBy = User
+
+	column isolation_score
+		dataType: double
+		lineageTag: 06c50463-90bb-518a-bf2f-32e674245843
+		summarizeBy: none
+		sourceColumn: isolation_score
+
+		annotation SummarizationSetBy = User
+
+	partition fact_trip = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "fact_trip.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"trip_id", type text}, {"distance_km", type number}, {"energy_out_kwh", type number}, {"energy_regen_kwh", type number}, {"energy_net_kwh", type number}, {"heating_kwh", type number}, {"aircon_kwh", type number}, {"energy_charged_kwh", type number}, {"mean_speed_kmh", type number}, {"ambient_mean_c", type number}, {"batt_temp_rise_c", type number}, {"expected_kwh_per_100km", type number}, {"isolation_score", type number}}, "en-US")
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table
