@@ -36,17 +36,7 @@ dashboard and a local GenAI assistant.
 
 ## The pipeline
 
-```mermaid
-flowchart LR
-    A[70 raw trip CSVs<br/>+ trip overview] --> B[01 Data understanding<br/>inventory, schemas, 22 issues]
-    B --> C[02 Data preparation<br/>DuckDB warehouse<br/>raw · clean · meta]
-    C --> D[03 Signal processing<br/>smoothing, phases,<br/>sag events, energy]
-    D --> E[04 EDA<br/>season, heating,<br/>resistance vs temp]
-    D --> F[05 Predictive modelling<br/>8 models + Optuna<br/>+ stacked ensemble]
-    D --> G[06 Anomaly detection<br/>4 detectors +<br/>root-cause notes]
-    E & F & G --> H[07-08 Power BI<br/>star schema +<br/>generated .pbip]
-    E & F & G --> I[09 GenAI assistant<br/>local RAG + text-to-SQL<br/>+ 32-question evaluation]
-```
+![Pipeline: raw data → understanding → preparation → signal processing → EDA, predictive modelling, anomaly detection → Power BI and GenAI assistant](docs/pipeline.png)
 
 | Step | Notebook | What it does |
 |---|---|---|
