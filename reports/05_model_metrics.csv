@@ -1,0 +1,43 @@
+task,split,stage,model,family,mae,rmse,r2,is_selected
+A · SoC estimation,cross-validation,default,Ridge,linear,2.733646758515083,3.6206384525069084,0.9423076407515241,False
+A · SoC estimation,cross-validation,default,ElasticNet,linear,2.743175510223658,3.6262148074415377,0.9421297932139284,False
+A · SoC estimation,cross-validation,default,Polynomial Ridge,linear,2.529910735372137,3.524425626791505,0.9453330705361235,False
+A · SoC estimation,cross-validation,default,Random Forest,tree ensemble,3.338003980839361,4.733291904378977,0.9014005353033968,False
+A · SoC estimation,cross-validation,default,Extra Trees,tree ensemble,3.260437395082964,4.405756798239724,0.9145742067448354,False
+A · SoC estimation,cross-validation,default,LightGBM,tree ensemble,3.115373545604175,4.486418138605753,0.911417593221348,False
+A · SoC estimation,cross-validation,default,XGBoost,tree ensemble,3.1712130506303877,4.708483507726133,0.9024313968579459,False
+A · SoC estimation,cross-validation,default,MLP,neural network,3.335114551482664,4.812319458695921,0.8980805950288415,False
+A · SoC estimation,cross-validation,tuned,Polynomial Ridge (tuned),linear,2.457305784426512,3.3205429592869087,0.9514749281873074,False
+A · SoC estimation,cross-validation,tuned,Ridge (tuned),linear,2.7336237265569077,3.6206516070162715,0.9423072215348205,False
+A · SoC estimation,cross-validation,tuned,ElasticNet (tuned),linear,2.7338789530210525,3.6209087080798983,0.9422990277603537,False
+A · SoC estimation,cross-validation,stacked,Stacked ensemble,ensemble,2.4083572193080545,3.3040722543048364,0.9519551267172541,True
+B · segment energy,cross-validation,default,Ridge,linear,3.2548960108391927,5.674359973339991,0.7540026467489573,False
+B · segment energy,cross-validation,default,ElasticNet,linear,3.2541416404184607,5.67300855426541,0.7541198074257682,False
+B · segment energy,cross-validation,default,Polynomial Ridge,linear,3.486045268943754,9.313725803866005,0.3372594192130196,False
+B · segment energy,cross-validation,default,Random Forest,tree ensemble,3.485355055703331,9.653641290581698,0.28800165800357336,False
+B · segment energy,cross-validation,default,Extra Trees,tree ensemble,3.450460403547513,9.500614083009685,0.31039560234260144,False
+B · segment energy,cross-validation,default,LightGBM,tree ensemble,4.6931036105030755,10.392699290115257,0.17481107561239173,False
+B · segment energy,cross-validation,default,XGBoost,tree ensemble,3.572510931589392,8.918178929341154,0.392356256241694,False
+B · segment energy,cross-validation,default,MLP,neural network,3.0351790263156593,4.920960325480246,0.8149894922894787,False
+B · segment energy,cross-validation,tuned,MLP (tuned),neural network,3.022676040488112,4.891899285184142,0.8171682222718978,False
+B · segment energy,cross-validation,tuned,ElasticNet (tuned),linear,3.245108531805124,5.677864374295179,0.7536987042547734,False
+B · segment energy,cross-validation,tuned,Ridge (tuned),linear,3.253206084565803,5.654150506183176,0.7557517858226419,False
+B · segment energy,cross-validation,stacked,Stacked ensemble,ensemble,2.872247834599585,5.242608477620931,0.7900134305102151,True
+A · SoC estimation,test,final,MLP,neural network,2.1027345727249838,3.0315103213319086,0.9607311470565012,False
+A · SoC estimation,test,final,Stacked ensemble,ensemble,2.123933060185501,2.9759324385124017,0.9621578112235085,True
+A · SoC estimation,test,final,Random Forest,tree ensemble,2.329095268178047,3.4650731781431117,0.948695561980061,False
+A · SoC estimation,test,final,LightGBM,tree ensemble,2.3293665153138186,3.43587579229959,0.9495565218284925,False
+A · SoC estimation,test,final,Extra Trees,tree ensemble,2.3786212893376457,3.5673722158488914,0.9456215324848615,False
+A · SoC estimation,test,final,Polynomial Ridge,linear,2.421613720923143,3.282410906479178,0.9539620467963444,False
+A · SoC estimation,test,final,XGBoost,tree ensemble,2.46022611488871,3.6107127521405777,0.9442922019247121,False
+A · SoC estimation,test,final,Ridge,linear,2.88873667438362,3.555569345092258,0.9459807662465217,False
+A · SoC estimation,test,final,ElasticNet,linear,2.8888065828109526,3.5555933188062387,0.9459800377859576,False
+B · segment energy,test,final,Random Forest,tree ensemble,1.9868588028803933,2.9297381295064127,0.7401415092181056,False
+B · segment energy,test,final,Stacked ensemble,ensemble,1.9938494944508054,2.8030211513876773,0.7621341721874773,True
+B · segment energy,test,final,Polynomial Ridge,linear,2.1099390303838677,2.792130054395366,0.763979029400366,False
+B · segment energy,test,final,Extra Trees,tree ensemble,2.2237004570112098,3.206345571294002,0.6887567364432643,False
+B · segment energy,test,final,XGBoost,tree ensemble,2.4092794146614738,3.578439489102606,0.6123260130080508,False
+B · segment energy,test,final,Ridge,linear,2.4253478719044574,3.4597819256883104,0.637609539971617,False
+B · segment energy,test,final,ElasticNet,linear,2.4269959159402306,3.415956575811842,0.646732253731493,False
+B · segment energy,test,final,MLP,neural network,3.281641247474572,4.342384160243343,0.42913188234088495,False
+B · segment energy,test,final,LightGBM,tree ensemble,4.184373736171164,5.534965120533689,0.07251032829854609,False

@@ -1,0 +1,17 @@
+feature,importance,task
+voltage_smooth_v,8.650547603078493,A · SoC estimation
+v_relaxed,4.953299875479262,A · SoC estimation
+voltage_mean_60s_v,4.24430231417495,A · SoC estimation
+batt_temp_c,3.230597277819927,A · SoC estimation
+ambient_temp_c,1.8993801181791787,A · SoC estimation
+current_mean_60s_a,1.7571668118445778,A · SoC estimation
+current_smooth_a,1.0265054573832413,A · SoC estimation
+power_smooth_kw,0.7672029173279357,A · SoC estimation
+heating_kw,2.243796737994223,B · segment energy
+batt_temp_c,0.4039220374755187,B · segment energy
+aircon_kw,0.36692983970406545,B · segment energy
+ambient_temp_c,0.29757197492441895,B · segment energy
+mean_abs_accel_ms2,0.22035374495783225,B · segment energy
+mean_speed_kmh,0.17801573749366315,B · segment energy
+speed_std_kmh,0.17316129950351428,B · segment energy
+climb_m_per_km,0.11407421057026843,B · segment energy
